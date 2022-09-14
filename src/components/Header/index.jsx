@@ -1,9 +1,13 @@
 import { Container } from "./styles";
 
+import { Wrapper } from "../Wrapper";
+
 export function Header() {
   return (
     <Container>
-      <a>myCars</a>
+      <Wrapper>
+        <a>myCars</a>
+      </Wrapper>
     </Container>
   );
 }

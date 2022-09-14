@@ -10,4 +10,14 @@ export const Container = styled.div`
     "header"
     "content"
     "buttons";
+
+  > .wrapper {
+    grid-area: content;
+    /* background-color: green; */
+  }
+
+  > .buttons {
+    grid-area: buttons;
+    background-color: red;
+  }
 `;
