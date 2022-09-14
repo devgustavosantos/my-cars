@@ -3,13 +3,16 @@ import { Container } from "./styles";
 import { Wrapper } from "../../components/Wrapper";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
+import { ButtonText } from "../../components/ButtonText";
 
 export function Details() {
   return (
     <Container>
       <Header />
       <Wrapper>
-        <Section title="Detalhes"></Section>
+        <Section title="Detalhes">
+          <ButtonText title="Voltar" />
+        </Section>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque illum,
           praesentium ducimus accusamus, velit voluptates beatae ratione
