@@ -6,13 +6,13 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/global";
 import Theme from "./styles/theme";
 
-import { Details } from "./pages/Details";
+import { New } from "./pages/New";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
-      <Details />
+      <New />
     </ThemeProvider>
   </React.StrictMode>
 );
