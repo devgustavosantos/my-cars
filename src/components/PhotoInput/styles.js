@@ -6,8 +6,13 @@ export const Container = styled.div`
 
   margin-bottom: 20px;
 
-  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
-  color: ${({ theme }) => theme.COLORS.GRAY_300};
+  background: ${({ theme, photo }) =>
+    photo
+      ? ` no-repeat url(${photo}) center center`
+      : theme.COLORS.BACKGROUND_900};
+  background-size: cover;
+  color: ${({ theme, photo }) =>
+    photo ? theme.COLORS.WHITE : theme.COLORS.GRAY_300};
 
   border: ${({ theme }) => `2px dashed ${theme.COLORS.GRAY_300}`};
   border-radius: 10px;
@@ -21,6 +26,12 @@ export const Container = styled.div`
     height: 100%;
 
     cursor: pointer;
+
+    > span {
+      background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
+      padding: 5px 15px;
+      border-radius: 9999px;
+    }
 
     > input {
       display: none;
