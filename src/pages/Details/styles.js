@@ -13,7 +13,6 @@ export const Container = styled.div`
 
   > .wrapper {
     grid-area: content;
-    /* background-color: green; */
   }
 
   > .buttons {

@@ -4,6 +4,7 @@ import { Wrapper } from "../../components/Wrapper";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
 import { ButtonText } from "../../components/ButtonText";
+import { Image } from "../../components/Image";
 
 export function Details() {
   return (
@@ -13,6 +14,7 @@ export function Details() {
         <Section title="Detalhes">
           <ButtonText title="Voltar" />
         </Section>
+        <Image />
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque illum,
           praesentium ducimus accusamus, velit voluptates beatae ratione
