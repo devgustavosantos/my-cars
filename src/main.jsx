@@ -6,15 +6,16 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "./styles/global";
 import Theme from "./styles/theme";
 
+import { Home } from "./pages/Home";
+import { Details } from "./pages/Details";
 import { Edit } from "./pages/Edit";
-
-import test from "./assets/place-holder.jpg";
+import { New } from "./pages/New";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
-      <Edit name="Civic" brand="Honda" age="2012" price={20000} photo={test} />
+      <Home />
     </ThemeProvider>
   </React.StrictMode>
 );
