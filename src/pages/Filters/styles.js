@@ -12,7 +12,4 @@ export const Form = styled.form`
     margin: 10px 0;
     font-weight: 500;
   }
-
-  .brands {
-  }
 `;
