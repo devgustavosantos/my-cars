@@ -10,6 +10,7 @@ export const Container = styled.input`
   border-radius: 10px;
 
   padding: 20px;
+  margin-bottom: 20px;
 
   &::placeholder {
     color: ${({ theme }) => theme.COLORS.GRAY_300};
