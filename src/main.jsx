@@ -10,12 +10,13 @@ import { Home } from "./pages/Home";
 import { Details } from "./pages/Details";
 import { Edit } from "./pages/Edit";
 import { New } from "./pages/New";
+import { Filters } from "./pages/Filters";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={Theme}>
       <GlobalStyle />
-      <Home />
+      <Filters />
     </ThemeProvider>
   </React.StrictMode>
 );
