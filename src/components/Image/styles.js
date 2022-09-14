@@ -4,7 +4,7 @@ import placeHolder from "../../assets/place-holder.jpg";
 
 export const Container = styled.div`
   width: 100%;
-  height: min(230px, 50vw);
+  height: min(400px, 50vw);
 
   background: no-repeat url(${placeHolder}) center center;
   background-size: cover;

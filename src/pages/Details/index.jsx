@@ -6,6 +6,8 @@ import { Section } from "../../components/Section";
 import { ButtonText } from "../../components/ButtonText";
 import { Image } from "../../components/Image";
 import { InfoCard } from "../../components/InfoCard";
+import { ButtonsArea } from "../../components/ButtonsArea";
+import { Button } from "../../components/Button";
 
 export function Details() {
   return (
@@ -36,7 +38,10 @@ export function Details() {
           <InfoCard info="Preço" value="R$ 20000" />
         </Infos>
       </Wrapper>
-      <div className="buttons"></div>
+      <ButtonsArea>
+        <Button title="Editar" />
+        <Button title="Excluir" isDangers />
+      </ButtonsArea>
     </Container>
   );
 }

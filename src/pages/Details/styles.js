@@ -4,12 +4,12 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
 
-  display: grid;
+  /* display: grid;
   grid-template-rows: 60px auto 170px;
   grid-template-areas:
     "header"
     "content"
-    "buttons";
+    "buttons"; */
 
   > .wrapper {
     grid-area: content;
