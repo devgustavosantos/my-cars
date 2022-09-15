@@ -11,6 +11,7 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     gap: 5px;
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
 
     > select {
       flex-grow: 1;
@@ -22,6 +23,7 @@ export const Container = styled.div`
       border-radius: 10px;
 
       padding: 15px;
+      text-align: center;
     }
   }
 `;

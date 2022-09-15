@@ -1,4 +1,4 @@
-import { Container, Form } from "./styles";
+import { Container, Form, Price } from "./styles";
 
 import { Header } from "../../components/Header";
 import { Wrapper } from "../../components/Wrapper";
@@ -7,6 +7,8 @@ import { ButtonText } from "../../components/ButtonText";
 import { Input } from "../../components/Input";
 import { BrandCheckbox } from "../../components/BrandCheckbox";
 import { AgesSelect } from "../../components/AgesSelect";
+import { Button } from "../../components/Button";
+import { ButtonsArea } from "../../components/ButtonsArea";
 
 const brandsReceived = [
   { name: "Fiat", id: 1 },
@@ -40,8 +42,21 @@ export function Filters() {
           <BrandCheckbox brands={brandsReceived} />
           <h2>Ano</h2>
           <AgesSelect ages={agesReceived} />
+          <h2>Preço</h2>
+          <Price>
+            <span>
+              Mínimo <input type="number" />
+            </span>
+            <span>
+              Máximo <input type="number" />
+            </span>
+          </Price>
         </Form>
       </Wrapper>
+      <ButtonsArea>
+        <Button title="Remover Filtros" isDangers />
+        <Button title="Aplicar Filtros" />
+      </ButtonsArea>
     </Container>
   );
 }
