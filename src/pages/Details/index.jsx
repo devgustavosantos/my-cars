@@ -1,3 +1,9 @@
+import { useState, useEffect } from "react";
+
+import { useParams } from "react-router-dom";
+
+import { api } from "../../services/api";
+
 import { Container, Infos } from "./styles";
 
 import { Wrapper } from "../../components/Wrapper";
@@ -10,6 +16,24 @@ import { ButtonsArea } from "../../components/ButtonsArea";
 import { Button } from "../../components/Button";
 
 export function Details() {
+  const [infosCar, setInfosCars] = useState("");
+  const { id } = useParams();
+
+  useEffect(() => {
+    async function searchInfos() {
+      try {
+        const response = await api.get(`cars/${id}`);
+        setInfosCars(response.data);
+      } catch (error) {
+        alert(
+          "Não foi possível carregar as informações. Por favor tente novamente"
+        );
+        console.log(error);
+      }
+    }
+    searchInfos();
+  }, []);
+
   return (
     <Container>
       <Header />
@@ -18,25 +42,29 @@ export function Details() {
           <ButtonText title="Voltar" to="/" />
         </Section>
         <Image />
-        <h2>Nome do Carro</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque illum,
-          praesentium ducimus accusamus, velit voluptates beatae ratione
-          temporibus vel aut ad. Quo debitis modi fugit laboriosam obcaecati
-          reiciendis placeat repellat! Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Amet ipsam quia praesentium et culpa illo molestiae
-          ratione optio reiciendis nam tempora labore, quos asperiores.
-          Dignissimos quidem quis perspiciatis numquam repellendus. Lorem ipsum
-          dolor sit amet consectetur adipisicing elit. Sed enim commodi dolores
-          iste iusto nulla voluptatem quasi libero excepturi cupiditate
-          obcaecati numquam delectus quos eos animi voluptate, officia nostrum.
-          Vitae!
-        </p>
-        <Infos>
-          <InfoCard info="Marca" value="Fiat" />
-          <InfoCard info="Ano" value="1996" />
-          <InfoCard info="Preço" value="R$ 20000" />
-        </Infos>
+        {infosCar && (
+          <>
+            <h2>{infosCar.title}</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque
+              illum, praesentium ducimus accusamus, velit voluptates beatae
+              ratione temporibus vel aut ad. Quo debitis modi fugit laboriosam
+              obcaecati reiciendis placeat repellat! Lorem ipsum dolor, sit amet
+              consectetur adipisicing elit. Amet ipsam quia praesentium et culpa
+              illo molestiae ratione optio reiciendis nam tempora labore, quos
+              asperiores. Dignissimos quidem quis perspiciatis numquam
+              repellendus. Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Sed enim commodi dolores iste iusto nulla voluptatem quasi
+              libero excepturi cupiditate obcaecati numquam delectus quos eos
+              animi voluptate, officia nostrum. Vitae!
+            </p>
+            <Infos>
+              <InfoCard info="Marca" value={infosCar.brand} />
+              <InfoCard info="Ano" value={infosCar.age} />
+              <InfoCard info="Preço" value={infosCar.price} />
+            </Infos>
+          </>
+        )}
       </Wrapper>
       <ButtonsArea>
         <Button title="Editar" />

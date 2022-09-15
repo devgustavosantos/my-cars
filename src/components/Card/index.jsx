@@ -2,7 +2,7 @@ import { Container } from "./styles";
 
 import { Button } from "../../components/Button";
 
-export function Card({ name, brand, price, age, photo }) {
+export function Card({ name, brand, price, age, photo, ...rest }) {
   return (
     <Container>
       <img src={photo} alt="Foto do carro" />
@@ -19,7 +19,7 @@ export function Card({ name, brand, price, age, photo }) {
         <strong>R$: </strong>
         {price}
       </span>
-      <Button title="Mostrar detalhes" />
+      <Button title="Mostrar detalhes" {...rest} />
     </Container>
   );
 }

@@ -1,3 +1,7 @@
+import { useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import { Container, ButtonAdd } from "./styles";
 
 import { Header } from "../../components/Header";
@@ -10,7 +14,30 @@ import { Card } from "../../components/Card";
 
 import placeholder from "../../assets/place-holder.jpg";
 
+import { api } from "../../services/api";
+
 export function Home() {
+  const [cars, setCars] = useState([]);
+
+  const navigate = useNavigate();
+
+  function showDetails(id) {
+    navigate(`/details/${id}`);
+  }
+
+  useEffect(() => {
+    async function loadCars() {
+      try {
+        const response = await api.get("/cars");
+        setCars(response.data);
+      } catch (error) {
+        alert("Não foi possível carregar os carros!");
+        console.log(error);
+      }
+    }
+    loadCars();
+  }, []);
+
   return (
     <Container>
       <Header />
@@ -19,27 +46,18 @@ export function Home() {
           <ButtonText title="Filtros" to="/filters" />
         </Section>
         <main>
-          <Card
-            name="Civic"
-            brand="Honda"
-            price="2000"
-            age={2012}
-            photo={placeholder}
-          />
-          <Card
-            name="Civic"
-            brand="Honda"
-            price="2000"
-            age={2012}
-            photo={placeholder}
-          />
-          <Card
-            name="Civic"
-            brand="Honda"
-            price="2000"
-            age={2012}
-            photo={placeholder}
-          />
+          {cars.length > 0 &&
+            cars.map(car => (
+              <Card
+                name={car.title}
+                brand={car.brand}
+                price={car.price}
+                age={car.price}
+                photo={placeholder}
+                key={car._id}
+                onClick={e => showDetails(car._id)}
+              />
+            ))}
         </main>
       </Wrapper>
       <ButtonsArea>
