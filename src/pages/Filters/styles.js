@@ -9,10 +9,28 @@ export const Container = styled.div`
     left: 0;
     bottom: 0;
   }
+
+  .pack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
+    > * {
+      flex-grow: 1;
+      width: min(100%, 300px);
+    }
+
+    > *:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
 `;
 
 export const Form = styled.form`
-  > h2 {
+  h2 {
     text-align: center;
     color: ${({ theme }) => theme.COLORS.GRAY_100};
     font-size: 18px;
@@ -48,10 +66,5 @@ export const Price = styled.div`
       border-radius: 10px;
       padding: 5px 15px;
     }
-    /*
-      outline: 1px dashed red;
-      max-width: 50%;
-      flex-grow: 1;
-    */
   }
 `;

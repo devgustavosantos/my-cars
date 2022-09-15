@@ -38,19 +38,25 @@ export function Filters() {
         <Form>
           <h2>Nome</h2>
           <Input placeholder="Digite o nome do carro aqui!" />
-          <h2>Marca</h2>
-          <BrandCheckbox brands={brandsReceived} />
-          <h2>Ano</h2>
-          <AgesSelect ages={agesReceived} />
-          <h2>Preço</h2>
-          <Price>
-            <span>
-              Mínimo <input type="number" />
-            </span>
-            <span>
-              Máximo <input type="number" />
-            </span>
-          </Price>
+          <div className="pack">
+            <div className="brand">
+              <h2>Marca</h2>
+              <BrandCheckbox brands={brandsReceived} />
+            </div>
+            <div className="age-price">
+              <h2>Ano</h2>
+              <AgesSelect ages={agesReceived} />
+              <h2>Preço</h2>
+              <Price>
+                <span>
+                  Mínimo <input type="number" />
+                </span>
+                <span>
+                  Máximo <input type="number" />
+                </span>
+              </Price>
+            </div>
+          </div>
         </Form>
       </Wrapper>
       <ButtonsArea>
