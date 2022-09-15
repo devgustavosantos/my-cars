@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
 export const Container = styled.div`
   position: relative;
 
@@ -16,4 +18,9 @@ export const Container = styled.div`
     left: 0;
     bottom: 0;
   }
+`;
+
+export const ButtonAdd = styled(Link)`
+  width: 100%;
+  display: flex;
 `;

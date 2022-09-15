@@ -15,7 +15,7 @@ export function Edit({ name, photo = false, brand, age, price }) {
       <Header />
       <Wrapper>
         <Section title="Editar carro">
-          <ButtonText title="Voltar" />
+          <ButtonText title="Voltar" to="/" />
         </Section>
         <Form>
           <Input type="text" placeholder={name} />

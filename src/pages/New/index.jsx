@@ -15,7 +15,7 @@ export function New() {
       <Header />
       <Wrapper>
         <Section title="Novo carro">
-          <ButtonText title="Voltar" />
+          <ButtonText title="Voltar" to="/" />
         </Section>
         <Form>
           <Input type="text" placeholder="Nome" />

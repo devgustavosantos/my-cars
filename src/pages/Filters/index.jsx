@@ -33,7 +33,7 @@ export function Filters() {
       <Header />
       <Wrapper>
         <Section title="Filtros">
-          <ButtonText title="Voltar" />
+          <ButtonText title="Voltar" to="/" />
         </Section>
         <Form>
           <h2>Nome</h2>

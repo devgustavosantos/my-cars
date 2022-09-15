@@ -15,7 +15,7 @@ export function Details() {
       <Header />
       <Wrapper>
         <Section title="Detalhes">
-          <ButtonText title="Voltar" />
+          <ButtonText title="Voltar" to="/" />
         </Section>
         <Image />
         <h2>Nome do Carro</h2>

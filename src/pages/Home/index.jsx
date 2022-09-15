@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { Container, ButtonAdd } from "./styles";
 
 import { Header } from "../../components/Header";
 import { Wrapper } from "../../components/Wrapper";
@@ -16,7 +16,7 @@ export function Home() {
       <Header />
       <Wrapper>
         <Section title="Todos carros">
-          <ButtonText title="Filtros" />
+          <ButtonText title="Filtros" to="/filters" />
         </Section>
         <main>
           <Card
@@ -43,7 +43,9 @@ export function Home() {
         </main>
       </Wrapper>
       <ButtonsArea>
-        <Button title="Adicionar" />
+        <ButtonAdd to="/new">
+          <Button title="Adicionar" />
+        </ButtonAdd>
       </ButtonsArea>
     </Container>
   );
