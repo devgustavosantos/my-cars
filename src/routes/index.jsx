@@ -6,11 +6,9 @@ import { AuthRoutes } from "./auth.routes";
 import { useAuth } from "../hooks/auth";
 
 export function Routes() {
-  const { accreditedUser } = useAuth();
+  const { userInfos } = useAuth();
 
   return (
-    <BrowserRouter>
-      {accreditedUser ? <AppRoutes /> : <AuthRoutes />}
-    </BrowserRouter>
+    <BrowserRouter>{userInfos ? <AppRoutes /> : <AuthRoutes />}</BrowserRouter>
   );
 }

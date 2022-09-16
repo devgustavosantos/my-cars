@@ -11,7 +11,7 @@ import { ButtonText } from "../../components/ButtonText";
 export function SignIn() {
   const [data, setData] = useState({ user: "", password: "" });
 
-  const { signIn, accreditedUser } = useAuth();
+  const { signIn, userInfos } = useAuth();
 
   function handleData(e) {
     const { name, value } = e.target;

@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
-  const [accreditedUser, setAccreditedUser] = useState(false);
+  const [userInfos, setUserInfos] = useState(false);
 
   function signIn(data) {
     const allUsers = JSON.parse(localStorage.getItem("@users")) || [];
@@ -26,11 +26,15 @@ function AuthProvider({ children }) {
       );
     }
 
-    setAccreditedUser(true);
+    setUserInfos(user);
+  }
+
+  function signOut(data) {
+    setUserInfos(false);
   }
 
   return (
-    <AuthContext.Provider value={{ signIn, accreditedUser }}>
+    <AuthContext.Provider value={{ signIn, signOut, userInfos }}>
       {children}
     </AuthContext.Provider>
   );
