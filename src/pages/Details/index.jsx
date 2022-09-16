@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { api } from "../../services/api";
 
-import { Container, Infos } from "./styles";
+import { Container, Infos, ButtonAdd } from "./styles";
 
 import { Wrapper } from "../../components/Wrapper";
 import { Header } from "../../components/Header";
@@ -88,7 +88,9 @@ export function Details() {
         )}
       </Wrapper>
       <ButtonsArea>
-        <Button title="Editar" />
+        <ButtonAdd to={`/edit/${id}`}>
+          <Button title="Editar" className="button-edit" />
+        </ButtonAdd>
         <Button title="Excluir" isDangers onClick={deleteCar} />
       </ButtonsArea>
     </Container>

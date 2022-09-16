@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
+
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -18,11 +20,6 @@ export const Container = styled.div`
       padding-bottom: 10px;
     }
   }
-
-  > .buttons {
-    grid-area: buttons;
-    background-color: red;
-  }
 `;
 
 export const Infos = styled.div`
@@ -31,4 +28,9 @@ export const Infos = styled.div`
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+`;
+
+export const ButtonAdd = styled(Link)`
+  width: 100%;
+  display: flex;
 `;
