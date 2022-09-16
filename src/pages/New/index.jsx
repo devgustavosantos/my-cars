@@ -37,7 +37,13 @@ export function New() {
         age,
       });
 
-      console.log(response);
+      alert("Carro cadastrado com sucesso!");
+      console.log(name, brand, age, price);
+
+      setName("");
+      setBrand("");
+      setAge("");
+      setPrice("");
     } catch (error) {
       alert("Não foi possível cadastrar, verifique e tente novamente!");
       console.log(error);
@@ -57,6 +63,7 @@ export function New() {
             type="text"
             placeholder="Nome"
             onChange={e => setName(e.target.value)}
+            value={name}
           />
           <PhotoInput />
           <div className="infos">
@@ -64,16 +71,19 @@ export function New() {
               type="text"
               placeholder="Marca"
               onChange={e => setBrand(e.target.value)}
+              value={brand}
             />
             <Input
               type="number"
               placeholder="Ano"
               onChange={e => setAge(e.target.value)}
+              value={age}
             />
             <Input
               type="number"
               placeholder="Preço"
               onChange={e => setPrice(e.target.value)}
+              value={price}
             />
           </div>
         </Form>

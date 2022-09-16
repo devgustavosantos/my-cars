@@ -52,7 +52,7 @@ export function Home() {
                 name={car.title}
                 brand={car.brand}
                 price={car.price}
-                age={car.price}
+                age={car.age}
                 photo={placeholder}
                 key={car._id}
                 onClick={e => showDetails(car._id)}
