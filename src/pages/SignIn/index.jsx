@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { Container, Content, BackgroundImg } from "./styles";
 
 import { Input } from "../../components/Input";
@@ -5,6 +7,14 @@ import { Button } from "../../components/Button";
 import { ButtonText } from "../../components/ButtonText";
 
 export function SignIn() {
+  useEffect(() => {
+    function getUserRegisters() {
+      const allUsers = localStorage.getItem("@users");
+      console.log(allUsers);
+    }
+
+    getUserRegisters();
+  }, []);
   return (
     <Container>
       <Content>
