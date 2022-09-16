@@ -31,6 +31,11 @@ export const Infos = styled.div`
 `;
 
 export const ButtonAdd = styled(Link)`
-  width: 100%;
+  min-width: 250px;
+  flex-grow: 1;
   display: flex;
+
+  > button {
+    min-width: initial;
+  }
 `;
