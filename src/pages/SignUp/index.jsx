@@ -49,9 +49,7 @@ export function SignUp() {
     const userAlreadyRegistered = allUsers.find(item => item.user == data.user);
 
     if (!data.name || !data.user || !data.password) {
-      return alert(
-        "Todos os campos tem que estar preenchidos. Tente novamente."
-      );
+      return alert("Todos os campos devem estar preenchidos. Tente novamente.");
     }
 
     if (userAlreadyRegistered) {

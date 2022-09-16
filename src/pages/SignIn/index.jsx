@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
+import { useAuth } from "../../hooks/auth";
 
 import { Container, Content, BackgroundImg } from "./styles";
 
@@ -8,6 +10,9 @@ import { ButtonText } from "../../components/ButtonText";
 
 export function SignIn() {
   const [data, setData] = useState({ user: "", password: "" });
+
+  const { signIn, accreditedUser } = useAuth();
+
   function handleData(e) {
     const { name, value } = e.target;
 
@@ -28,24 +33,8 @@ export function SignIn() {
     }
   }
 
-  function trySignIn() {
-    const allUsers = JSON.parse(localStorage.getItem("@users")) || [];
-
-    const user = allUsers.find(item => item.user == data.user);
-
-    if (!user) {
-      return alert(
-        "Usuário e/ou senha incorretos. Verifique e tente novamente."
-      );
-    }
-
-    if (user.password != data.password) {
-      return alert(
-        "Usuário e/ou senha incorretos. Verifique e tente novamente."
-      );
-    }
-
-    setData({ name: "", user: "", password: "" });
+  function handleSignIn() {
+    signIn(data);
   }
 
   return (
@@ -68,7 +57,7 @@ export function SignIn() {
           onChange={e => handleData(e)}
           value={data.password}
         />
-        <Button title="Entrar" onClick={trySignIn} />
+        <Button title="Entrar" onClick={handleSignIn} />
         <ButtonText title="Criar conta" to="/register" />
       </Content>
       <BackgroundImg />
