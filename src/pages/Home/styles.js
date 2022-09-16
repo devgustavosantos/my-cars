@@ -11,6 +11,12 @@ export const Container = styled.div`
     flex-wrap: wrap;
     gap: 20px;
     padding-bottom: 150px;
+
+    > h2 {
+      color: ${({ theme }) => theme.COLORS.GRAY_100};
+      font-size: 30px;
+      margin: 30px 0;
+    }
   }
 
   > *:nth-child(3) {

@@ -33,7 +33,10 @@ export function Home() {
         const response = await api.get("/cars");
         const allCars = response.data;
 
-        const myCars = allCars.filter(car => car._id.includes(baseId));
+        //Para mostrar somente carros cadastrados por mim.
+        //const myCars = allCars.filter(car => car._id.includes(baseId));
+
+        const myCars = allCars;
 
         setCars(myCars);
       } catch (error) {
@@ -41,6 +44,7 @@ export function Home() {
         console.log(error);
       }
     }
+
     loadCars();
   }, []);
 
@@ -48,11 +52,9 @@ export function Home() {
     <Container>
       <Header />
       <Wrapper>
-        <Section title="Todos carros">
-          <ButtonText title="Filtros" to="/filters" />
-        </Section>
+        <Section title="Todos carros"></Section>
         <main>
-          {cars.length > 0 &&
+          {cars.length > 0 ? (
             cars.map(car => (
               <Card
                 name={car.title}
@@ -63,7 +65,10 @@ export function Home() {
                 key={car._id}
                 onClick={e => showDetails(car._id)}
               />
-            ))}
+            ))
+          ) : (
+            <h2>Nenhum carro adicionado ainda.</h2>
+          )}
         </main>
       </Wrapper>
       <ButtonsArea>

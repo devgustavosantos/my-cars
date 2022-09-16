@@ -49,6 +49,7 @@ export function Details() {
         alert(
           "Não foi possível carregar as informações. Por favor tente novamente"
         );
+        navigate("/");
         console.log(error);
       }
     }
