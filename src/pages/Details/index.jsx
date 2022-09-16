@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { api } from "../../services/api";
 
@@ -18,6 +18,27 @@ import { Button } from "../../components/Button";
 export function Details() {
   const [infosCar, setInfosCars] = useState("");
   const { id } = useParams();
+
+  const navigate = useNavigate();
+
+  async function deleteCar() {
+    const confirmDeletion = confirm("Você tem certeza que deseja excluir?");
+
+    if (confirmDeletion) {
+      try {
+        const response = await api.delete(`/cars/${id}`);
+        if (response.data._id) {
+          alert("O carro foi excluído com sucesso.");
+          navigate("/");
+        }
+      } catch (error) {
+        alert(
+          "Não foi possível excluir, tente novamente em alguns segundos..."
+        );
+        console.log(error);
+      }
+    }
+  }
 
   useEffect(() => {
     async function searchInfos() {
@@ -68,7 +89,7 @@ export function Details() {
       </Wrapper>
       <ButtonsArea>
         <Button title="Editar" />
-        <Button title="Excluir" isDangers />
+        <Button title="Excluir" isDangers onClick={deleteCar} />
       </ButtonsArea>
     </Container>
   );

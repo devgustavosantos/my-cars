@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 
+import { api } from "../../services/api";
+
+import { baseId } from "../../utils/variables";
+
 import { useNavigate } from "react-router-dom";
 
 import { Container, ButtonAdd } from "./styles";
@@ -14,8 +18,6 @@ import { Card } from "../../components/Card";
 
 import placeholder from "../../assets/place-holder.jpg";
 
-import { api } from "../../services/api";
-
 export function Home() {
   const [cars, setCars] = useState([]);
 
@@ -29,7 +31,11 @@ export function Home() {
     async function loadCars() {
       try {
         const response = await api.get("/cars");
-        setCars(response.data);
+        const allCars = response.data;
+
+        const myCars = allCars.filter(car => car._id.includes(baseId));
+
+        setCars(myCars);
       } catch (error) {
         alert("Não foi possível carregar os carros!");
         console.log(error);

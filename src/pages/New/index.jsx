@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { api } from "../../services/api";
 
+import { baseId } from "../../utils/variables";
+
 import { Container, Form } from "./styles";
 
 import { Header } from "../../components/Header";
@@ -16,16 +18,26 @@ import { Button } from "../../components/Button";
 export function New() {
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState("");
   const [price, setPrice] = useState("");
 
   async function register() {
-    const baseId = "1111111aaaaaaa";
     const numberRandom = parseInt(Math.random() * 9999999999);
     const finalId = `${baseId}${numberRandom}`;
 
     if (!name || !brand || !age || !price) {
       return alert("Todos os campos são necessário!");
+    }
+
+    const userEnteredInvalidNumbers =
+      isNaN(parseInt(age)) || isNaN(parseInt(price));
+
+    console.log(userEnteredInvalidNumbers);
+
+    if (userEnteredInvalidNumbers) {
+      return alert(
+        "Números inválidos foram digitados. Verifique e tente novamente!"
+      );
     }
 
     try {
@@ -45,11 +57,9 @@ export function New() {
       setAge("");
       setPrice("");
     } catch (error) {
-      alert("Não foi possível cadastrar, verifique e tente novamente!");
+      alert("Não foi possível cadastrar, tente novamente em alguns segundos!");
       console.log(error);
     }
-
-    console.log(finalId);
   }
   return (
     <Container>
