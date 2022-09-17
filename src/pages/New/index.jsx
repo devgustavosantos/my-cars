@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { api } from "../../services/api";
 
-import { baseId } from "../../utils/variables";
+import { useAuth } from "../../hooks/auth";
 
 import { Container, Form } from "./styles";
 
@@ -21,9 +21,14 @@ export function New() {
   const [age, setAge] = useState("");
   const [price, setPrice] = useState("");
 
+  const { userInfos } = useAuth();
+
   async function register() {
     const numberRandom = parseInt(Math.random() * 9999999999);
-    const finalId = `${baseId}${numberRandom}`;
+
+    const noteId = `${userInfos.id}aaaa${numberRandom}`;
+
+    console.log(noteId);
 
     if (!name || !brand || !age || !price) {
       return alert("Todos os campos são necessário!");
@@ -31,8 +36,6 @@ export function New() {
 
     const userEnteredInvalidNumbers =
       isNaN(parseInt(age)) || isNaN(parseInt(price));
-
-    console.log(userEnteredInvalidNumbers);
 
     if (userEnteredInvalidNumbers) {
       return alert(
@@ -42,7 +45,7 @@ export function New() {
 
     try {
       const response = await api.post("/cars", {
-        _id: finalId,
+        _id: noteId,
         title: name,
         brand,
         price,
@@ -50,7 +53,6 @@ export function New() {
       });
 
       alert("Carro cadastrado com sucesso!");
-      console.log(name, brand, age, price);
 
       setName("");
       setBrand("");

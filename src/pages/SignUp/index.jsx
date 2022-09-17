@@ -57,11 +57,22 @@ export function SignUp() {
     }
 
     try {
-      const updatedUsers = [data, ...allUsers];
+      let id;
+      let isIdUnique = false;
+
+      while (!isIdUnique) {
+        id = parseInt(Math.random() * 9999999999);
+
+        allUsers.forEach(user => {
+          user.id == id ? (isIdUnique = false) : (isIdUnique = true);
+        });
+      }
+
+      const newUser = { id, ...data };
+
+      const updatedUsers = [newUser, ...allUsers];
 
       localStorage.setItem("@users", JSON.stringify(updatedUsers));
-
-      setData({ name: "", user: "", password: "" });
 
       alert("Usuário cadastrado com sucesso. Agora você pode se logar.");
       navigate("/");
