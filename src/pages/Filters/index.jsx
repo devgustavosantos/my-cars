@@ -14,14 +14,6 @@ import { AgesSelect } from "../../components/AgesSelect";
 import { Button } from "../../components/Button";
 import { ButtonsArea } from "../../components/ButtonsArea";
 
-const agesReceived = [
-  { age: "1996", id: 1 },
-  { age: "1997", id: 2 },
-  { age: "1998", id: 3 },
-  { age: "1999", id: 4 },
-  { age: "2000", id: 5 },
-];
-
 export function Filters() {
   const [brand, setBrand] = useState("");
   const [age, setAge] = useState("");
