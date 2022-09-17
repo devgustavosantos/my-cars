@@ -56,7 +56,9 @@ export function Home() {
     <Container>
       <Header />
       <Wrapper>
-        <Section title="Todos carros"></Section>
+        <Section title="Todos carros">
+          <ButtonText title="Filtros" to="/filters" />
+        </Section>
         <main>
           {cars.length > 0 ? (
             cars.map(car => (

@@ -1,3 +1,7 @@
+import { useState, useEffect } from "react";
+
+import { api } from "../../services/api";
+
 import { Container, Form, Price } from "./styles";
 
 import { Header } from "../../components/Header";
@@ -10,15 +14,6 @@ import { AgesSelect } from "../../components/AgesSelect";
 import { Button } from "../../components/Button";
 import { ButtonsArea } from "../../components/ButtonsArea";
 
-const brandsReceived = [
-  { name: "Fiat", id: 1 },
-  { name: "Chevrolet", id: 2 },
-  { name: "Honda", id: 3 },
-  { name: "Ferrari", id: 4 },
-  { name: "Renault", id: 5 },
-  { name: "Citroen", id: 6 },
-];
-
 const agesReceived = [
   { age: "1996", id: 1 },
   { age: "1997", id: 2 },
@@ -28,6 +23,20 @@ const agesReceived = [
 ];
 
 export function Filters() {
+  const [brand, setBrand] = useState("");
+  const [age, setAge] = useState("");
+  const [price, setPrice] = useState("");
+  const [cars, setCars] = useState("");
+
+  useEffect(() => {
+    async function searchData() {
+      const response = await api.get("/cars");
+      setCars(response.data);
+    }
+
+    searchData();
+  }, []);
+
   return (
     <Container>
       <Header />
@@ -41,11 +50,11 @@ export function Filters() {
           <div className="pack">
             <div className="brand">
               <h2>Marca</h2>
-              <BrandCheckbox brands={brandsReceived} />
+              {cars && <BrandCheckbox cars={cars} />}
             </div>
             <div className="age-price">
               <h2>Ano</h2>
-              <AgesSelect ages={agesReceived} />
+              {cars && <AgesSelect cars={cars} />}
               <h2>Preço</h2>
               <Price>
                 <span>
@@ -57,6 +66,11 @@ export function Filters() {
               </Price>
             </div>
           </div>
+          <h2>Dono</h2>
+          <label htmlFor="owner">
+            <input type="checkbox" name="form-owner" id="owner" />
+            Desejo mostrar apenas carros que eu adicionei.
+          </label>
         </Form>
       </Wrapper>
       <ButtonsArea>

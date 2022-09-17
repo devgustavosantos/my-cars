@@ -1,12 +1,12 @@
 import { Container } from "./styles";
 
-export function BrandCheckbox({ brands }) {
+export function BrandCheckbox({ cars }) {
   return (
     <Container>
-      {brands.map(brand => (
-        <label htmlFor={brand.id} key={`brand${brand.id}`}>
-          <input id={brand.id} type="checkbox" />
-          {brand.name}
+      {cars.map(car => (
+        <label htmlFor={car._id} key={`brand${car._id}`}>
+          <input id={car._id} type="checkbox" />
+          {car.brand}
         </label>
       ))}
     </Container>

@@ -21,6 +21,11 @@ export const Container = styled.div`
       width: min(100%, 300px);
     }
 
+    > .brand {
+      display: inline-flex;
+      flex-direction: column;
+    }
+
     > *:nth-child(2) {
       display: flex;
       flex-direction: column;
@@ -37,17 +42,22 @@ export const Form = styled.form`
     margin: 10px 0;
     font-weight: 500;
   }
+
+  > label:last-child {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+  }
 `;
 
 export const Price = styled.div`
   width: 100%;
-
   padding: 10px;
-
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
-
   border-radius: 10px;
-
   display: flex;
   gap: 10px;
 

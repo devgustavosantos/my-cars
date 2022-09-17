@@ -1,21 +1,32 @@
 import { Container } from "./styles";
 
-export function AgesSelect({ ages }) {
+export function AgesSelect({ cars }) {
+  const carOrdered = cars.sort((a, b) => a.age - b.age);
+  const ages = carOrdered.map(car => car.age);
+
+  const agesUniques = new Set();
+
+  ages.forEach(age => {
+    agesUniques.add(age);
+  });
+
+  const agesFiltered = [...agesUniques];
+
   return (
     <Container>
       <span>
         De:
         <select>
-          {ages.map(age => (
-            <option key={`age-id-${age.id}`}>{age.age}</option>
+          {agesFiltered.map(age => (
+            <option key={`age-id-${age}`}>{age}</option>
           ))}
         </select>
       </span>
       <span>
         Até:
         <select>
-          {ages.map(age => (
-            <option key={`age-id-${age.id}`}>{age.age}</option>
+          {agesFiltered.map(age => (
+            <option key={`age-id-${age}`}>{age}</option>
           ))}
         </select>
       </span>
