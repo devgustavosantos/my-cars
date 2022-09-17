@@ -5,6 +5,7 @@ import { New } from "../pages/New";
 import { Details } from "../pages/Details";
 import { Filters } from "../pages/Filters";
 import { Edit } from "../pages/Edit";
+import { NotFound } from "../pages/NotFound";
 
 export function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ export function AppRoutes() {
       <Route path="/details/:id" element={<Details />} />
       <Route path="/filters" element={<Filters />} />
       <Route path="/edit/:id" element={<Edit />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
