@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 import { api } from "../../services/api";
 
+import { useAuth } from "../../hooks/auth";
+
 import { useNavigate } from "react-router-dom";
 
 import { Container, ButtonAdd } from "./styles";
@@ -19,6 +21,8 @@ import placeholder from "../../assets/place-holder.jpg";
 export function Home() {
   const [cars, setCars] = useState([]);
 
+  const { userInfos } = useAuth();
+
   const navigate = useNavigate();
 
   function showDetails(id) {
@@ -31,14 +35,16 @@ export function Home() {
         const response = await api.get("/cars");
         const allCars = response.data;
 
-        //Para mostrar somente carros cadastrados por mim.
-        //const myCars = allCars.filter(car => car._id.includes(baseId));
+        //Para mostrar somente carros cadastrados por este usuário.
+        // const myCars = allCars.filter(car => car._id.includes(userInfos.id));
 
         const myCars = allCars;
 
         setCars(myCars);
       } catch (error) {
-        alert("Não foi possível carregar os carros!");
+        alert(
+          "Não foi possível carregar os carros! Tente recarregar a página."
+        );
         console.log(error);
       }
     }
