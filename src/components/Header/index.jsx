@@ -6,8 +6,6 @@ import { Container, User } from "./styles";
 
 import { Wrapper } from "../Wrapper";
 
-import { Link } from "react-router-dom";
-
 export function Header() {
   const [userName, setUserName] = useState("");
   const { userInfos, signOut } = useAuth();
@@ -16,10 +14,6 @@ export function Header() {
     setUserName(userInfos.name);
   }, []);
 
-  function handleSignOut() {
-    signOut();
-  }
-
   return (
     <Container>
       <Wrapper>
@@ -27,7 +21,7 @@ export function Header() {
           <span>Bem vindo(a),</span>
           <span>{userName}</span>
         </User>
-        <button onClick={handleSignOut}>Sair</button>
+        <button onClick={signOut}>Sair</button>
       </Wrapper>
     </Container>
   );

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext({});
 
@@ -26,12 +26,21 @@ function AuthProvider({ children }) {
       );
     }
 
+    localStorage.setItem("@user-infos", JSON.stringify(user));
     setUserInfos(user);
   }
 
-  function signOut(data) {
+  function signOut() {
+    localStorage.removeItem("@user-infos");
     setUserInfos(false);
   }
+
+  useEffect(() => {
+    const isUserLoggedIn =
+      JSON.parse(localStorage.getItem("@user-infos")) || false;
+
+    setUserInfos(isUserLoggedIn);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ signIn, signOut, userInfos }}>
