@@ -28,8 +28,6 @@ export function New() {
 
     const noteId = `${userInfos.id}aaaa${numberRandom}`;
 
-    console.log(noteId);
-
     if (!name || !brand || !age || !price) {
       return alert("Todos os campos são necessário!");
     }

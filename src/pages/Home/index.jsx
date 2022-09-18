@@ -4,6 +4,8 @@ import { api } from "../../services/api";
 
 import { useAuth } from "../../hooks/auth";
 
+import { formattedNumbers } from "../../utils/formattedNumbers";
+
 import { useNavigate } from "react-router-dom";
 
 import { Container, ButtonAdd } from "./styles";
@@ -29,6 +31,17 @@ export function Home() {
     navigate(`/details/${id}`);
   }
 
+  function formatCars(cars) {
+    const alteredCars = cars.map(car => {
+      const priceFormatted = formattedNumbers(car.price);
+      const price = isNaN(priceFormatted) ? "Indisponível" : priceFormatted;
+
+      return { ...car, ["price"]: price };
+    });
+
+    return alteredCars;
+  }
+
   useEffect(() => {
     async function loadCars() {
       try {
@@ -38,7 +51,7 @@ export function Home() {
         //Para mostrar somente carros cadastrados por este usuário.
         // const myCars = allCars.filter(car => car._id.includes(userInfos.id));
 
-        const myCars = allCars;
+        const myCars = formatCars(allCars);
 
         setCars(myCars);
       } catch (error) {

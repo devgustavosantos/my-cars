@@ -59,22 +59,71 @@ export const Price = styled.div`
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
   border-radius: 10px;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 20px;
 
-  > span {
-    width: 100%;
+  .numbers {
     display: flex;
-    align-items: center;
-    gap: 5px;
-    color: ${({ theme }) => theme.COLORS.GRAY_100};
+    gap: 10px;
+    flex-wrap: wrap;
 
-    > input {
+    span {
+      width: 100%;
+      min-width: 160px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: ${({ theme }) => theme.COLORS.GRAY_100};
+    }
+
+    input {
       width: 100%;
       background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
       color: ${({ theme }) => theme.COLORS.WHITE};
       border: none;
       border-radius: 10px;
       padding: 5px 15px;
+    }
+  }
+
+  > .container-slider {
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 5px;
+      background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
+      border-radius: 9999px;
+    }
+
+    .progress {
+      position: absolute;
+      background-color: ${({ theme }) => theme.COLORS.ORANGE};
+      border-radius: 9999px;
+      height: 100%;
+      left: 0%;
+      right: 0%;
+    }
+
+    input {
+      position: absolute;
+
+      width: 100%;
+
+      top: -5px;
+      background: none;
+      pointer-events: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      height: 17px;
+      width: 17px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.COLORS.ORANGE};
+      pointer-events: auto;
+      -webkit-appearance: none;
+      box-shadow: 0 0 6px;
     }
   }
 `;

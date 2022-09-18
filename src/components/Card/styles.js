@@ -32,6 +32,7 @@ export const Container = styled.div`
   > span:nth-child(5) {
     margin: 25px 0;
     font-size: 30px;
+    text-align: center;
   }
 
   strong {
