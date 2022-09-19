@@ -94,6 +94,8 @@ export function Filters() {
     return formattedData;
   }
 
+  console.log({ entries });
+
   function handleEntries(e) {
     const { name, value } = e.target;
 
@@ -123,7 +125,6 @@ export function Filters() {
         break;
 
       case "from":
-        console.log(Number(value) <= entries.ages.to);
         if (Number(value) <= entries.ages.to) {
           setEntries({
             ...entries,
@@ -174,6 +175,7 @@ export function Filters() {
             ["max"]: value,
           },
         });
+
         break;
 
       case "owner":
@@ -191,6 +193,10 @@ export function Filters() {
   }
 
   function applyFilter() {
+    if (entries.price.max < entries.price.min) {
+      return alert("O preço máximo não pode ser menor do que o preço mínimo!");
+    }
+
     alert("Filtros aplicados com sucesso");
 
     navigate(
@@ -209,9 +215,14 @@ export function Filters() {
         const infosFormatted = formatData(response.data);
 
         setInitialValues(infosFormatted);
+        console.log({ infosFormatted });
         setEntries({
           ...entries,
-          ["ages"]: {
+          price: {
+            min: infosFormatted.prices.min,
+            max: infosFormatted.prices.max,
+          },
+          ages: {
             from: Math.min(...infosFormatted.ages),
             to: Math.max(...infosFormatted.ages),
           },

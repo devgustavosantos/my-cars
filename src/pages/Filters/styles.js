@@ -33,6 +33,7 @@ export const Container = styled.div`
       border-radius: 10px;
       padding: 15px;
       overflow-y: auto;
+      max-height: 150px;
     }
 
     > *:nth-child(2) {
