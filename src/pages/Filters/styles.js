@@ -26,6 +26,15 @@ export const Container = styled.div`
       flex-direction: column;
     }
 
+    .container-brands {
+      width: 100%;
+      flex-grow: 1;
+      background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+      border-radius: 10px;
+      padding: 15px;
+      overflow-y: auto;
+    }
+
     > *:nth-child(2) {
       display: flex;
       flex-direction: column;
@@ -124,6 +133,34 @@ export const Price = styled.div`
       pointer-events: auto;
       -webkit-appearance: none;
       box-shadow: 0 0 6px;
+    }
+  }
+`;
+
+export const Ages = styled.div`
+  width: 100%;
+
+  display: flex;
+  gap: 10px;
+
+  > span {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
+
+    > select {
+      flex-grow: 1;
+      width: 100%;
+      background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+
+      color: ${({ theme }) => theme.COLORS.WHITE};
+      border: none;
+      border-radius: 10px;
+
+      padding: 15px;
+      text-align: center;
     }
   }
 `;

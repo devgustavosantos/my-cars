@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 
 import { api } from "../../services/api";
 
-import { Container, Form, Price } from "./styles";
+import { formattedNumbers } from "../../utils/formattedNumbers";
+
+import { useNavigate } from "react-router-dom";
+
+import { Container, Form, Price, Ages } from "./styles";
 
 import { Header } from "../../components/Header";
 import { Wrapper } from "../../components/Wrapper";
@@ -10,58 +14,26 @@ import { Section } from "../../components/Section";
 import { ButtonText } from "../../components/ButtonText";
 import { Input } from "../../components/Input";
 import { BrandCheckbox } from "../../components/BrandCheckbox";
-import { AgesSelect } from "../../components/AgesSelect";
+import { Options } from "../../components/Options";
 import { Button } from "../../components/Button";
 import { ButtonsArea } from "../../components/ButtonsArea";
 
-const templateVaLues = {
+const templateEntries = {
   title: "",
   brands: [],
-  age: { from: 0, to: 0 },
-  price: { min: 0, max: 0 },
+  ages: { from: "", to: "" },
+  price: { min: "", max: "" },
   owner: false,
 };
 
 export function Filters() {
-  // const [brand, setBrand] = useState("");
-  // const [age, setAge] = useState("");
-  // const [price, setPrice] = useState({ min: "", max: "" });
-  // const [cars, setCars] = useState("");
-  // const [inputLeft, setInputLeft] = useState(0);
-  // const [inputRight, setInputRight] = useState(100);
+  const navigate = useNavigate();
 
-  const [initialValues, setInitialValues] = useState({});
+  const [initialValues, setInitialValues] = useState();
+  const [entries, setEntries] = useState(templateEntries);
 
-  // function handlePrice(e) {
-  //   const { name, value } = e.target;
-
-  //   console.log(name, value);
-
-  //   if (name == "input-left") {
-  //     setInputLeft(value);
-  //   }
-
-  //   if (name == "input-right") {
-  //     setInputRight(value);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   function givePrices() {
-  //     const onlyPrices = cars.map(car => car.price);
-  //     setPrice({
-  //       min: Math.min(...onlyPrices),
-  //       max: Math.max(...onlyPrices),
-  //     });
-  //   }
-
-  //   if (cars) givePrices();
-  // }, [cars]);
-
-  console.log("fora do effect", initialValues);
-
-  useEffect(() => {
-    function fixTheBrands(cars) {
+  function formatData(cars) {
+    function formatBrands() {
       const onlyBrand = cars.map(car => car.brand);
 
       const brandsOrdered = onlyBrand.sort();
@@ -83,7 +55,7 @@ export function Filters() {
       return brands;
     }
 
-    function fixTheAges(cars) {
+    function formatAges() {
       const onlyAges = cars.map(car => car.age);
       const agesOrdered = onlyAges.sort();
 
@@ -98,32 +70,133 @@ export function Filters() {
       return agesFiltered;
     }
 
-    function getMinMaxPrices(cars) {
-      const onlyPrices = cars.map(car => parseFloat(car.price) || 0);
+    function getMinMaxPrices() {
+      const onlyPrices = cars.map(car => formattedNumbers(car.price));
+
+      const onlyValidPrices = onlyPrices.filter(price =>
+        isNaN(price) ? false : price
+      );
 
       const minMaxPrices = {
-        min: Math.min(...onlyPrices),
-        max: Math.max(...onlyPrices),
+        min: Math.min(...onlyValidPrices),
+        max: Math.max(...onlyValidPrices),
       };
 
       return minMaxPrices;
     }
 
-    const initialValuesWereReceived = initialValues[0] && true;
+    const brands = formatBrands(initialValues);
+    const ages = formatAges(initialValues);
+    const prices = getMinMaxPrices(initialValues);
 
-    if (initialValuesWereReceived) {
-      const brands = fixTheBrands(initialValues);
-      const ages = fixTheAges(initialValues);
-      const prices = getMinMaxPrices(initialValues);
+    const formattedData = { brands, ages, prices };
 
-      setInitialValues({ brands, ages, prices });
+    return formattedData;
+  }
+
+  function handleEntries(e) {
+    const { name, value } = e.target;
+    console.log({ name, value, entries });
+
+    switch (name) {
+      case "title":
+        setEntries({
+          ...entries,
+          [name]: value,
+        });
+        break;
+
+      case "brand":
+        console.log("atualizou");
+
+        const brandAlreadySelected = entries.brands.filter(
+          brand => brand != value
+        );
+
+        const newBrandsSelected = [value, ...brandAlreadySelected];
+
+        setEntries({
+          ...entries,
+          ["brands"]: newBrandsSelected,
+        });
+
+        break;
+
+      case "from":
+        setEntries({
+          ...entries,
+          ["ages"]: {
+            ...entries.ages,
+            [name]: value,
+          },
+        });
+        break;
+
+      case "to":
+        setEntries({
+          ...entries,
+          ["ages"]: {
+            ...entries.ages,
+            [name]: value,
+          },
+        });
+        break;
+
+      case "price-min":
+        setEntries({
+          ...entries,
+          ["price"]: {
+            ...entries.price,
+            ["min"]: value,
+          },
+        });
+        break;
+
+      case "price-max":
+        setEntries({
+          ...entries,
+          ["price"]: {
+            ...entries.price,
+            ["max"]: value,
+          },
+        });
+        break;
+
+      case "owner":
+        entries.owner
+          ? setEntries({
+              ...entries,
+              [name]: false,
+            })
+          : setEntries({
+              ...entries,
+              [name]: true,
+            });
+        break;
     }
-  }, [initialValues]);
+  }
 
   useEffect(() => {
     async function searchData() {
-      const response = await api.get("/cars");
-      setInitialValues(response.data);
+      try {
+        const response = await api.get("/cars");
+        const infosFormatted = formatData(response.data);
+
+        setInitialValues(infosFormatted);
+        setEntries({
+          ...entries,
+          ["ages"]: {
+            from: Math.min(...infosFormatted.ages),
+            to: Math.max(...infosFormatted.ages),
+          },
+        });
+      } catch (error) {
+        console.log(error);
+        alert(
+          "Infelizmente não foi possível carregar os dados. Tente novamente mais tarde."
+        );
+        navigate("/");
+      }
     }
 
     searchData();
@@ -138,15 +211,48 @@ export function Filters() {
         </Section>
         <Form>
           <h2>Nome</h2>
-          <Input placeholder="Digite o nome do carro aqui!" />
+          <Input
+            placeholder="Digite o nome do carro aqui!"
+            name="title"
+            onChange={e => handleEntries(e)}
+            value={entries.title}
+          />
           <div className="pack">
             <div className="brand">
               <h2>Marca</h2>
-              {/* {cars && <BrandCheckbox cars={cars} />} */}
+              <div className="container-brands">
+                {initialValues && (
+                  <BrandCheckbox
+                    brands={initialValues.brands}
+                    onChange={e => handleEntries(e)}
+                  />
+                )}
+              </div>
             </div>
             <div className="age-price">
               <h2>Ano</h2>
-              {/* {cars && <AgesSelect cars={cars} />} */}
+              <Ages>
+                <span>
+                  De:
+                  <select
+                    name="from"
+                    onChange={e => handleEntries(e)}
+                    value={entries.ages.from}
+                  >
+                    {initialValues && <Options ages={initialValues.ages} />}
+                  </select>
+                </span>
+                <span>
+                  Até:
+                  <select
+                    name="to"
+                    onChange={e => handleEntries(e)}
+                    value={entries.ages.to}
+                  >
+                    {initialValues && <Options ages={initialValues.ages} />}
+                  </select>
+                </span>
+              </Ages>
               <h2>Preço</h2>
               <Price>
                 <div className="numbers">
@@ -157,7 +263,9 @@ export function Filters() {
                       min="{}"
                       max="{}"
                       step="1000"
-                      // value="{}"
+                      name="price-min"
+                      onChange={e => handleEntries(e)}
+                      value={entries.price.min}
                       // onChange={e =>
                       //   setPrice({
                       //     min: e.target.value,
@@ -173,6 +281,9 @@ export function Filters() {
                       min="{}"
                       max="{}"
                       step="1000"
+                      name="price-max"
+                      onChange={e => handleEntries(e)}
+                      value={entries.price.max}
                       // value="{}"
                       // onChange={e =>
                       //   setPrice({
@@ -213,7 +324,12 @@ export function Filters() {
           </div>
           <h2>Dono</h2>
           <label htmlFor="owner">
-            <input type="checkbox" name="form-owner" id="owner" />
+            <input
+              type="checkbox"
+              name="owner"
+              id="owner"
+              onChange={e => handleEntries(e)}
+            />
             Desejo mostrar apenas carros que eu adicionei.
           </label>
         </Form>
