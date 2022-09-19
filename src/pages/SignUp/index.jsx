@@ -57,16 +57,7 @@ export function SignUp() {
     }
 
     try {
-      let id;
-      let isIdUnique = false;
-
-      while (!isIdUnique) {
-        id = parseInt(Math.random() * 9999999999);
-
-        allUsers.forEach(user => {
-          user.id == id ? (isIdUnique = false) : (isIdUnique = true);
-        });
-      }
+      const id = parseInt(Math.random() * 9999999999);
 
       const newUser = { id, ...data };
 
