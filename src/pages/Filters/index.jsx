@@ -57,7 +57,7 @@ export function Filters() {
 
     function formatAges() {
       const onlyAges = cars.map(car => car.age);
-      const agesOrdered = onlyAges.sort();
+      const agesOrdered = onlyAges.sort((a, b) => a - b);
 
       const agesUniques = new Set();
 
