@@ -6,7 +6,7 @@ import { useAuth } from "../../hooks/auth";
 
 import { formattedNumbers } from "../../utils/formattedNumbers";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { Container, ButtonAdd } from "./styles";
 
@@ -23,9 +23,102 @@ import placeholder from "../../assets/place-holder.jpg";
 export function Home() {
   const [cars, setCars] = useState([]);
 
+  const navigate = useNavigate();
+
   const { userInfos } = useAuth();
 
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [filters, setFilters] = useState({
+    title: searchParams.get("title"),
+    brands: searchParams.get("brands"),
+    ages: searchParams.get("ages"),
+    price: {
+      min: searchParams.get("price-min"),
+      max: searchParams.get("price-max"),
+    },
+    owner: searchParams.get("owner"),
+  });
+
+  function filterCars(cars) {
+    const haveFiltersBeenAdded =
+      filters.title ||
+      filters.brands ||
+      filters.ages ||
+      filters.price ||
+      filters.owner;
+
+    console.log(cars);
+
+    if (!haveFiltersBeenAdded) {
+      return cars;
+    } else {
+      let filteredCars = cars;
+
+      if (filters.title) {
+        filteredCars = cars.filter(car =>
+          car.title.toLowerCase().includes(filters.title.toLowerCase())
+        );
+      }
+
+      if (filters.brands) {
+        const brands = filters.brands.split(",");
+        let filtersWithBrands = [];
+        brands.forEach(brand => {
+          filteredCars.forEach(car => {
+            if (car.brand == brand) {
+              filtersWithBrands = [car, ...filtersWithBrands];
+            }
+          });
+        });
+        filteredCars = filtersWithBrands;
+      }
+
+      if (filters.ages) {
+        function formatAges() {
+          const firstFormatting = filters.ages.split("from");
+          const secondFormatting = firstFormatting[1].split("to");
+
+          return secondFormatting;
+        }
+
+        const ages = formatAges();
+
+        filteredCars = filteredCars.filter(car => {
+          if (car.age >= ages[0] && car.age <= ages[1]) return car;
+        });
+      }
+
+      if (filters.price.min || filters.price.max) {
+        const minPrice = filters.price.min;
+        const maxPrice = filters.price.max;
+
+        if (minPrice && maxPrice) {
+          filteredCars = filteredCars.filter(car => {
+            if (car.price >= minPrice && car.price <= maxPrice) return car;
+          });
+        } else if (minPrice && !maxPrice) {
+          filteredCars = filteredCars.filter(car => {
+            if (car.price >= minPrice) return car;
+          });
+        } else if (!minPrice && maxPrice) {
+          filteredCars = filteredCars.filter(car => {
+            if (car.price <= maxPrice) return car;
+          });
+        }
+      }
+
+      if (filters.owner == "true") {
+        console.log("entrou ?=>", filteredCars);
+        const baseNoteId = `${userInfos.id}aaaa`;
+
+        filteredCars = filteredCars.filter(car => {
+          if (car._id.includes(baseNoteId)) return car;
+        });
+      }
+
+      return filteredCars;
+    }
+  }
 
   function showDetails(id) {
     navigate(`/details/${id}`);
@@ -46,14 +139,14 @@ export function Home() {
     async function loadCars() {
       try {
         const response = await api.get("/cars");
+
         const allCars = response.data;
 
-        //Para mostrar somente carros cadastrados por este usuário.
-        // const myCars = allCars.filter(car => car._id.includes(userInfos.id));
+        const formattedCars = formatCars(allCars);
 
-        const myCars = formatCars(allCars);
+        const filteredCars = filterCars(formattedCars);
 
-        setCars(myCars);
+        setCars(filteredCars);
       } catch (error) {
         alert(
           "Não foi possível carregar os carros! Tente recarregar a página."

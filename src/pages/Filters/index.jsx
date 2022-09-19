@@ -96,7 +96,6 @@ export function Filters() {
 
   function handleEntries(e) {
     const { name, value } = e.target;
-    console.log({ name, value, entries });
 
     switch (name) {
       case "title":
@@ -107,8 +106,6 @@ export function Filters() {
         break;
 
       case "brand":
-        console.log("atualizou");
-
         const brandAlreadySelected = entries.brands.filter(
           brand => brand != value
         );
@@ -174,6 +171,19 @@ export function Filters() {
             });
         break;
     }
+  }
+
+  function applyFilter() {
+    alert("Filtros aplicados com sucesso");
+    console.log({ entries });
+
+    navigate(
+      `/?title=${entries.title}&brands=${[...entries.brands]}&ages=from${
+        entries.ages.from
+      }to${entries.ages.to}&price-min=${entries.price.min}&price-max=${
+        entries.price.max
+      }&owner=${entries.owner}`
+    );
   }
 
   useEffect(() => {
@@ -266,12 +276,6 @@ export function Filters() {
                       name="price-min"
                       onChange={e => handleEntries(e)}
                       value={entries.price.min}
-                      // onChange={e =>
-                      //   setPrice({
-                      //     min: e.target.value,
-                      //     max: price.max,
-                      //   })
-                      // }
                     />
                   </span>
                   <span>
@@ -284,13 +288,6 @@ export function Filters() {
                       name="price-max"
                       onChange={e => handleEntries(e)}
                       value={entries.price.max}
-                      // value="{}"
-                      // onChange={e =>
-                      //   setPrice({
-                      //     min: price.min,
-                      //     max: e.target.value,
-                      //   })
-                      // }
                     />
                   </span>
                 </div>
@@ -336,7 +333,7 @@ export function Filters() {
       </Wrapper>
       <ButtonsArea>
         <Button title="Remover Filtros" isDangers />
-        <Button title="Aplicar Filtros" />
+        <Button title="Aplicar Filtros" onClick={applyFilter} />
       </ButtonsArea>
     </Container>
   );
