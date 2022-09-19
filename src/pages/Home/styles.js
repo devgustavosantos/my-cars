@@ -23,6 +23,7 @@ export const Container = styled.div`
     position: fixed;
     left: 0;
     bottom: 0;
+    display: flex;
   }
 `;
 

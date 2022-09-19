@@ -175,7 +175,6 @@ export function Filters() {
 
   function applyFilter() {
     alert("Filtros aplicados com sucesso");
-    console.log({ entries });
 
     navigate(
       `/?title=${entries.title}&brands=${[...entries.brands]}&ages=from${
@@ -332,7 +331,7 @@ export function Filters() {
         </Form>
       </Wrapper>
       <ButtonsArea>
-        <Button title="Remover Filtros" isDangers />
+        {/* <Button title="Remover Filtros" isDangers /> */}
         <Button title="Aplicar Filtros" onClick={applyFilter} />
       </ButtonsArea>
     </Container>

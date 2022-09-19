@@ -8,7 +8,7 @@ import { formattedNumbers } from "../../utils/formattedNumbers";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { Container, ButtonAdd } from "./styles";
+import { Container } from "./styles";
 
 import { Header } from "../../components/Header";
 import { Wrapper } from "../../components/Wrapper";
@@ -39,16 +39,21 @@ export function Home() {
     owner: searchParams.get("owner"),
   });
 
-  function filterCars(cars) {
-    const haveFiltersBeenAdded =
-      filters.title ||
+  const [haveFiltersBeenAdded, setHaveFiltersBeenAdded] = useState(
+    filters.title ||
       filters.brands ||
       filters.ages ||
-      filters.price ||
-      filters.owner;
+      filters.price.min ||
+      filters.price.max ||
+      filters.owner
+  );
 
-    console.log(cars);
-
+  function removeFilters() {
+    setHaveFiltersBeenAdded(false);
+    navigate("/");
+    window.location.reload();
+  }
+  function filterCars(cars) {
     if (!haveFiltersBeenAdded) {
       return cars;
     } else {
@@ -108,7 +113,6 @@ export function Home() {
       }
 
       if (filters.owner == "true") {
-        console.log("entrou ?=>", filteredCars);
         const baseNoteId = `${userInfos.id}aaaa`;
 
         filteredCars = filteredCars.filter(car => {
@@ -184,9 +188,10 @@ export function Home() {
         </main>
       </Wrapper>
       <ButtonsArea>
-        <ButtonAdd to="/new">
-          <Button title="Adicionar" />
-        </ButtonAdd>
+        {haveFiltersBeenAdded && (
+          <Button title="Remover filtros" isDangers onClick={removeFilters} />
+        )}
+        <Button title="Adicionar carro" onClick={() => navigate("/new")} />
       </ButtonsArea>
     </Container>
   );

@@ -78,7 +78,7 @@ export function SignUp() {
       navigate("/");
     } catch (error) {
       alert("Não foi possível cadastrar o usuário. Tente novamente");
-      console.log(error);
+      g(error);
     }
   }
 
