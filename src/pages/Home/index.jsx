@@ -70,7 +70,7 @@ export function Home() {
         let filtersWithBrands = [];
         brands.forEach(brand => {
           filteredCars.forEach(car => {
-            if (car.brand == brand) {
+            if (car.brand.toLowerCase() == brand.toLowerCase()) {
               filtersWithBrands = [car, ...filtersWithBrands];
             }
           });
@@ -183,7 +183,7 @@ export function Home() {
               />
             ))
           ) : (
-            <h2>Nenhum carro adicionado ainda.</h2>
+            <h2>Nenhum carro encontrado.</h2>
           )}
         </main>
       </Wrapper>
