@@ -123,23 +123,37 @@ export function Filters() {
         break;
 
       case "from":
-        setEntries({
-          ...entries,
-          ["ages"]: {
-            ...entries.ages,
-            [name]: value,
-          },
-        });
+        console.log(Number(value) <= entries.ages.to);
+        if (Number(value) <= entries.ages.to) {
+          setEntries({
+            ...entries,
+            ["ages"]: {
+              ...entries.ages,
+              [name]: value,
+            },
+          });
+        } else {
+          alert(
+            'Não é possível colocar um "ano final" menor do que o "ano inicial"!'
+          );
+        }
+
         break;
 
       case "to":
-        setEntries({
-          ...entries,
-          ["ages"]: {
-            ...entries.ages,
-            [name]: value,
-          },
-        });
+        if (Number(value) >= entries.ages.from) {
+          setEntries({
+            ...entries,
+            ["ages"]: {
+              ...entries.ages,
+              [name]: value,
+            },
+          });
+        } else {
+          alert(
+            'Não é possível colocar um "ano final" menor do que o "ano inicial"!'
+          );
+        }
         break;
 
       case "price-min":
