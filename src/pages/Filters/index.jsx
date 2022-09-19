@@ -106,11 +106,14 @@ export function Filters() {
         break;
 
       case "brand":
-        const brandAlreadySelected = entries.brands.filter(
-          brand => brand != value
+        const brandAlreadySelected = entries.brands.find(
+          brand => brand == value
         );
 
-        const newBrandsSelected = [value, ...brandAlreadySelected];
+        let newBrandsSelected = [];
+        brandAlreadySelected
+          ? (newBrandsSelected = entries.brands.filter(brand => brand != value))
+          : (newBrandsSelected = [value, ...entries.brands]);
 
         setEntries({
           ...entries,
